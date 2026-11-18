@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>五子棋</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../__sdk__/theme.css">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-stones" viewBox="0 0 16 16"><circle cx="5.5" cy="6" r="3.4" fill="currentColor" stroke="none" opacity=".92"/><circle cx="10.5" cy="10.5" r="3.4" fill="none" stroke="currentColor"/></symbol>
+  <symbol id="i-vol" viewBox="0 0 16 16"><path d="M2.5 6v4h2.5L8.5 13V3L5 6z"/><path d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.5 3.5a6 6 0 0 1 0 9"/></symbol>
+  <symbol id="i-mute" viewBox="0 0 16 16"><path d="M2.5 6v4h2.5L8.5 13V3L5 6z"/><path d="M10.5 6l4 4M14.5 6l-4 4"/></symbol>
+</svg>
+<div class="app">
+  <header class="hd">
+    <span class="hd-mark"><svg class="icon"><use href="#i-stones"/></svg></span>
+    <h1 class="hd-title">五子棋</h1>
+    <div class="hd-right">
+      <span class="timer" id="timer">00:00</span>
+      <span class="moves" id="moves">0 手</span>
+    </div>
+  </header>
+
+  <div class="main">
+    <section class="board-pane" id="boardPane">
+      <div class="board-stage"><div class="stage-caption"><span>15 × 15</span></div><canvas id="board" aria-label="五子棋棋盘"></canvas></div>
+    </section>
+
+    <aside class="side">
+      <div class="status-card" aria-live="polite">
+        <span class="dot black" id="turnDot"></span>
+        <div class="status-body">
+          <div class="status-main" id="statusMain">轮到你落子</div>
+          <div class="status-sub" id="statusSub">执黑 · 第 1 手</div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-label"><span>对手难度</span><span class="group-note">AI 只看当前局面</span></div>
+        <div class="seg" id="levels">
+          <button type="button" data-level="easy">轻松</button>
+          <button type="button" data-level="normal">普通</button>
+          <button type="button" data-level="hard">挑战</button>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-label"><span>我执</span><span class="group-note">先手更主动</span></div>
+        <div class="seg" id="sides">
+          <button type="button" data-side="black">黑棋 · 先手</button>
+          <button type="button" data-side="white">白棋 · 后手</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="ma-btn primary" id="newBtn">新开一局</button>
+        <button type="button" class="ma-btn" id="undoBtn">悔棋</button>
+        <button type="button" class="ma-btn" id="hintBtn">提示</button>
+      </div>
+
+      <div class="stats">
+        <div class="stats-heading">本地战绩</div>
+        <div class="stat"><span class="stat-n" id="statWin">0</span><span class="stat-k">胜</span></div>
+        <div class="stat"><span class="stat-n" id="statLoss">0</span><span class="stat-k">负</span></div>
+        <div class="stat"><span class="stat-n" id="statDraw">0</span><span class="stat-k">平</span></div>
+      </div>
+
+      <div class="meta-row">
+        <span id="streakText">连胜 0 · 最佳 0</span>
+        <button type="button" class="sound" id="soundBtn" title="音效开关" aria-label="音效开关"><svg class="icon"><use href="#i-vol" id="soundIcon"/></svg></button>
+      </div>
+
+      <div class="hintbar">点交叉点落子 · U 悔棋 · R 新局 · H 提示</div>
+    </aside>
+  </div>
+</div>
+
+<script src="../__sdk__/sdk.js"></script>
+<script type="module" src="./ui.mjs"></script>
+</body>
+</html>

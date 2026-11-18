@@ -1,0 +1,215 @@
+{
+  "id": "gomoku",
+  "name": "五子棋",
+  "version": "4.0.1",
+  "description": "人和 AI 共用同一棋盘状态。",
+  "icon": "builtin-extension:gomoku",
+  "scope": "global",
+  "surface": {
+    "kind": "sidebar",
+    "entry": "ui/panel.html",
+    "title": "五子棋"
+  },
+  "domain": {
+    "entry": "domain.mjs",
+    "queries": [
+      "game.analyze",
+      "game.hint",
+      "game.status"
+    ],
+    "commands": [
+      "game.new",
+      "game.place",
+      "game.agentMove",
+      "game.undo",
+      "game.hint",
+      "game.setLevel",
+      "game.setSide"
+    ],
+    "events": [
+      "state.changed"
+    ],
+    "queryDefs": [
+      {
+        "id": "game.analyze",
+        "title": "分析局势",
+        "permission": "read",
+        "parameters": {
+          "type": "object"
+        }
+      },
+      {
+        "id": "game.hint",
+        "title": "读取推荐落点",
+        "permission": "read",
+        "parameters": {
+          "type": "object"
+        }
+      },
+      {
+        "id": "game.status",
+        "title": "读取棋局状态",
+        "permission": "read",
+        "parameters": {
+          "type": "object"
+        }
+      }
+    ],
+    "commandDefs": [
+      {
+        "id": "game.new",
+        "title": "新开一局",
+        "permission": "edit",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "human": {
+              "enum": [
+                "black",
+                "white"
+              ]
+            },
+            "level": {
+              "enum": [
+                "easy",
+                "normal",
+                "hard"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "game.place",
+        "title": "落子",
+        "permission": "edit",
+        "parameters": {
+          "type": "object",
+          "required": [
+            "row",
+            "col"
+          ],
+          "properties": {
+            "row": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 14
+            },
+            "col": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 14
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "game.agentMove",
+        "title": "替当前一方落子",
+        "permission": "edit",
+        "parameters": {
+          "type": "object",
+          "required": [
+            "row",
+            "col"
+          ],
+          "properties": {
+            "row": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 14
+            },
+            "col": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 14
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "game.undo",
+        "title": "悔棋",
+        "permission": "edit",
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "game.hint",
+        "title": "显示提示",
+        "permission": "edit",
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "game.setLevel",
+        "title": "设置难度",
+        "permission": "edit",
+        "parameters": {
+          "type": "object",
+          "required": [
+            "level"
+          ],
+          "properties": {
+            "level": {
+              "enum": [
+                "easy",
+                "normal",
+                "hard"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "game.setSide",
+        "title": "设置执棋方",
+        "permission": "edit",
+        "parameters": {
+          "type": "object",
+          "required": [
+            "human"
+          ],
+          "properties": {
+            "human": {
+              "enum": [
+                "black",
+                "white"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    ]
+  },
+  "agent": {
+    "profile": "scheduler-pi",
+    "systemPrompt": "agent.md",
+    "skills": [],
+    "mcp": []
+  },
+  "data": {
+    "workspace": true,
+    "shared": false
+  },
+  "permissions": [
+    "agent.state",
+    "agent.commands",
+    "theme"
+  ],
+  "theme": {
+    "accent": "#d17b3f",
+    "tokens": {
+      "panel": "#fff8ef"
+    }
+  }
+}

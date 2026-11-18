@@ -1,0 +1,6 @@
+{
+  "name": "muster-extension-gomoku",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test test/*.mjs" }
+}
